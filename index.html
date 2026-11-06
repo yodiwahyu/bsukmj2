@@ -1,203 +1,717 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#287747">
+
   <title>Cek Potensi BSU 2026 - PT Kanindo Makmur Jaya 2</title>
+
   <style>
     :root {
-      --primary: #0056b3;
-      --bg: #f4f7f6;
-      --text: #333;
+      --primary: #287747;
+      --primary-dark: #1d5c36;
+      --primary-light: #eaf5ed;
+      --bg: #f3f7f4;
+      --text: #26352b;
+      --muted: #6b7b70;
+      --border: #dce8df;
+      --danger: #c0392b;
+      --warning: #9a6700;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+      padding: 30px 16px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
     }
+
+    .container {
+      width: 100%;
+      max-width: 540px;
+    }
+
     .card {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 500px;
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(35, 80, 49, 0.09);
+      border: 1px solid #e8efe9;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #287747, #1d5c36);
+      padding: 30px 25px 26px;
       text-align: center;
+      color: white;
     }
+
     .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
+      width: 125px;
+      max-width: 65%;
+      height: auto;
+      object-fit: contain;
+      background: white;
+      border-radius: 10px;
+      padding: 9px;
+      margin-bottom: 16px;
     }
-    h2 {
-      margin-top: 0;
-      color: var(--primary);
+
+    .header h1 {
+      font-size: 23px;
+      margin: 0 0 8px;
+      font-weight: 700;
+      line-height: 1.35;
     }
-    input[type="number"] {
+
+    .header p {
+      margin: 0;
+      font-size: 13px;
+      color: #e2f2e6;
+    }
+
+    .content {
+      padding: 27px 25px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .intro h2 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      color: var(--primary-dark);
+    }
+
+    .intro p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
       width: 100%;
-      padding: 12px;
-      margin: 15px 0;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-      box-sizing: border-box;
+      padding: 15px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: 17px;
+      letter-spacing: 1.5px;
+      outline: none;
+      transition: .2s;
+      color: var(--text);
+      background: #fff;
     }
-    button {
-      background-color: var(--primary);
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(40, 119, 71, .10);
+    }
+
+    input::placeholder {
+      font-size: 13px;
+      letter-spacing: 0;
+      color: #a0aaa3;
+    }
+
+    .input-hint {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 7px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 18px;
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 12px 20px;
-      width: 100%;
-      border-radius: 6px;
-      font-size: 16px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
+      transition: .2s;
     }
-    button:hover {
-      background-color: #004494;
+
+    .btn:hover {
+      background: var(--primary-dark);
     }
-    .alert {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 6px;
+
+    .btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    .loading {
       display: none;
-      text-align: left;
-    }
-    .alert-success {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-    .alert-danger {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-    .disclaimer {
-      font-size: 0.85em;
-      color: #666;
-      margin-top: 15px;
-      font-style: italic;
-    }
-    .form-link {
-      display: inline-block;
-      margin-top: 15px;
-      background-color: #28a745;
-      color: white;
-      padding: 10px 15px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
       text-align: center;
-    }
-    .tutorial-box {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e9ecef;
-      border-radius: 6px;
-      text-align: left;
-      font-size: 0.9em;
-    }
-    .loader {
-      display: none;
-      margin-top: 15px;
-      font-weight: bold;
+      padding: 20px 5px 5px;
+      font-size: 13px;
       color: var(--primary);
+    }
+
+    .spinner {
+      width: 25px;
+      height: 25px;
+      border: 3px solid #dcecdf;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .result {
+      display: none;
+      margin-top: 23px;
+      border-radius: 12px;
+      padding: 19px;
+      animation: fadeIn .3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result.success {
+      background: #eff8f1;
+      border: 1px solid #c6e6ce;
+    }
+
+    .result.danger {
+      background: #fff4f3;
+      border: 1px solid #f0d0cc;
+    }
+
+    .result-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+
+    .success .result-title {
+      color: #216b38;
+    }
+
+    .danger .result-title {
+      color: #a52b23;
+    }
+
+    .employee-info {
+      background: white;
+      border: 1px solid #dce9de;
+      border-radius: 9px;
+      padding: 13px;
+      margin: 13px 0;
+    }
+
+    .employee-info .label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .employee-info .value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      word-break: break-word;
+    }
+
+    .result-message {
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 0;
+      color: #435448;
+    }
+
+    .important-note {
+      background: #fff9e9;
+      border: 1px solid #f1dfae;
+      border-radius: 8px;
+      padding: 13px;
+      margin-top: 15px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #765514;
+    }
+
+    .criteria {
+      margin-top: 25px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      background: #fbfdfb;
+    }
+
+    .criteria h3 {
+      font-size: 15px;
+      color: var(--primary-dark);
+      margin: 0 0 13px;
+    }
+
+    .criteria ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .criteria li {
+      font-size: 12px;
+      line-height: 1.7;
+      margin-bottom: 10px;
+      color: #526157;
+    }
+
+    .criteria li:last-child {
+      margin-bottom: 0;
+    }
+
+    .criteria strong {
+      color: #304a38;
+    }
+
+    .success-area {
+      display: none;
+      margin-top: 17px;
+    }
+
+    .success-area h3 {
+      font-size: 15px;
+      color: var(--primary-dark);
+      margin: 0 0 8px;
+    }
+
+    .success-area p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #58675c;
+    }
+
+    .form-link {
+      display: block;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 13px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 13px;
+    }
+
+    .form-link:hover {
+      background: var(--primary-dark);
+    }
+
+    .tutorial {
+      margin-top: 15px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 14px;
+    }
+
+    .tutorial h4 {
+      font-size: 13px;
+      margin: 0 0 9px;
+      color: var(--primary-dark);
+    }
+
+    .tutorial ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .tutorial li {
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      color: #58675c;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 17px;
+      background: #f8fbf8;
+      border-top: 1px solid #edf2ee;
+      font-size: 11px;
+      line-height: 1.7;
+      color: #849087;
+    }
+
+    .footer strong {
+      color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px 10px;
+        align-items: flex-start;
+      }
+
+      .header {
+        padding: 25px 18px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+
+      .content {
+        padding: 22px 17px;
+      }
     }
   </style>
 </head>
+
 <body>
 
+<div class="container">
   <div class="card">
-    <img src="https://raw.githubusercontent.com/yodiwahyu/berkas/main/logo%20kanindo.png" alt="Logo PT Kanindo" class="logo">
-    <h2>Cek Potensi Penerima BSU 2026</h2>
-    <p>Karyawan PT Kanindo Makmur Jaya 2</p>
 
-    <input type="number" id="nik" placeholder="Masukkan 16 Digit NIK KTP Anda" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-    <button onclick="cekBSU()">Cek Status</button>
+    <div class="header">
+      <img
+        src="https://raw.githubusercontent.com/yodiwahyu/berkas/main/logo%20kanindo.png"
+        alt="Logo PT Kanindo"
+        class="logo"
+      >
 
-    <div id="loading" class="loader">Memeriksa data, mohon tunggu...</div>
+      <h1>Cek Potensi Penerima BSU 2026</h1>
+      <p>PT Kanindo Makmur Jaya 2</p>
+    </div>
 
-    <!-- Kotak Hasil Pengecekan -->
-    <div id="resultBox" class="alert">
-      <strong id="resultTitle"></strong>
-      <p id="resultMessage"></p>
-      
-      <!-- Area khusus jika berpotensi menerima -->
-      <div id="successArea" style="display: none;">
-        <p class="disclaimer">
-          *PENTING: Apabila BSU tidak cair, hal tersebut <strong>bukan tanggung jawab HRD</strong>, karena pihak yang melakukan verifikasi kelayakan akhir dan pencairan adalah <strong>Kementerian Ketenagakerjaan RI</strong>.
+    <div class="content">
+
+      <div class="intro">
+        <h2>Pengecekan Data Karyawan</h2>
+        <p>
+          Masukkan Nomor Induk Kependudukan (NIK) sesuai KTP
+          untuk mengetahui potensi penerimaan Bantuan Subsidi Upah.
         </p>
-        <hr>
-        <p>Silakan isi formulir pembaruan data rekening di bawah ini:</p>
-        <a href="LINK_GOOGLE_FORM_REKENING_ANDA" target="_blank" class="form-link">Isi Form Data Rekening Bank Himbara</a>
-        
-        <div class="tutorial-box">
-          <strong>Belum punya rekening HIMBARA?</strong><br>
-          Anda bisa membuatnya secara online dari HP tanpa harus ke bank:<br><br>
-          <ul>
-            <li><strong>Bank Mandiri (Livin' by Mandiri):</strong> Download aplikasi Livin', buka aplikasi, pilih "Belum Punya Rekening Mandiri", lalu pilih "Buka Tabungan" dan siapkan KTP Anda.</li>
-            <li><strong>Bank BRI (BRImo):</strong> Download aplikasi BRImo, pilih "Belum Punya Akun", lalu klik "Buka Rekening", ikuti instruksi foto KTP dan wajah.</li>
-            <li><strong>Bank BNI (BNI Mobile Banking):</strong> Download BNI Mobile, pilih "Buka Rekening BNI", pilih jenis tabungan Prakerja/Taplus, dan isi data diri sesuai KTP.</li>
-          </ul>
+      </div>
+
+      <form id="cekForm">
+        <label class="form-label" for="nik">
+          Nomor Induk Kependudukan (NIK)
+        </label>
+
+        <div class="input-wrap">
+          <input
+            type="text"
+            id="nik"
+            name="nik"
+            inputmode="numeric"
+            maxlength="16"
+            autocomplete="off"
+            placeholder="Masukkan 16 digit NIK Anda"
+            required
+          >
+        </div>
+
+        <div class="input-hint">
+          <span>Pastikan NIK sesuai KTP</span>
+          <span id="digitCount">0/16 digit</span>
+        </div>
+
+        <button type="submit" class="btn" id="checkButton">
+          Cek Status BSU
+        </button>
+      </form>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        Sedang memeriksa data Anda...
+      </div>
+
+      <!-- HASIL PENGECEKAN -->
+      <div id="resultBox" class="result">
+
+        <h3 id="resultTitle" class="result-title"></h3>
+
+        <div id="employeeInfo" class="employee-info" style="display:none">
+          <div class="label">Nama Karyawan</div>
+          <div class="value" id="employeeName"></div>
+
+          <div class="label" style="margin-top:12px">NIK</div>
+          <div class="value" id="employeeNik"></div>
+        </div>
+
+        <p id="resultMessage" class="result-message"></p>
+
+        <div id="importantNote" class="important-note" style="display:none">
+          <strong>Informasi Penting</strong><br>
+          Hasil ini merupakan pengecekan potensi berdasarkan data
+          perusahaan, bukan penetapan resmi penerima BSU.
+          Verifikasi dan keputusan akhir penerima serta pencairan
+          merupakan kewenangan pemerintah melalui Kementerian
+          Ketenagakerjaan RI.
+        </div>
+
+        <!-- KHUSUS KARYAWAN BERPOTENSI -->
+        <div id="successArea" class="success-area">
+
+          <hr style="border:0;border-top:1px solid #d7e7d9;margin:18px 0">
+
+          <h3>Langkah Selanjutnya</h3>
+
+          <p>
+            Silakan lengkapi formulir pembaruan data rekening
+            untuk keperluan administrasi perusahaan.
+          </p>
+
+          <a
+            href="LINK_GOOGLE_FORM_REKENING_ANDA"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="form-link"
+          >
+            Isi Form Data Rekening Bank Himbara
+          </a>
+
+          <div class="tutorial">
+            <h4>Belum Memiliki Rekening HIMBARA?</h4>
+
+            <p style="margin-top:0">
+              Anda dapat mempelajari cara pembukaan rekening
+              melalui aplikasi perbankan resmi:
+            </p>
+
+            <ul>
+              <li>
+                <strong>Bank Mandiri:</strong>
+                Gunakan aplikasi Livin' by Mandiri dan pilih
+                menu pembukaan rekening.
+              </li>
+
+              <li>
+                <strong>Bank BRI:</strong>
+                Gunakan aplikasi BRImo dan pilih menu
+                Buka Rekening.
+              </li>
+
+              <li>
+                <strong>Bank BNI:</strong>
+                Gunakan aplikasi wondr by BNI dan ikuti
+                prosedur pembukaan rekening yang tersedia.
+              </li>
+            </ul>
+          </div>
+
+          <p style="font-size:11px;color:#a52b23;margin-top:14px">
+            HRD tidak menjamin pencairan BSU. Jangan memberikan
+            PIN, password, maupun kode OTP kepada siapa pun.
+          </p>
+
         </div>
       </div>
+
+      <!-- KRITERIA BSU -->
+      <div class="criteria">
+        <h3>Persyaratan / Kriteria Penerima BSU 2026</h3>
+
+        <ol>
+          <li>
+            <strong>Warga Negara Indonesia (WNI)</strong>,
+            dibuktikan dengan Nomor Induk Kependudukan (NIK).
+          </li>
+
+          <li>
+            <strong>Kepesertaan BPJS Ketenagakerjaan:</strong>
+            Terdaftar aktif sebagai Pekerja Penerima Upah (PU)
+            hingga Agustus 2026.
+          </li>
+
+          <li>
+            <strong>Batasan Gaji:</strong>
+            Bergaji maksimal Rp3.500.000 per bulan atau mengikuti
+            UMP/UMK daerah setempat yang lebih tinggi apabila berlaku.
+          </li>
+
+          <li>
+            <strong>Prioritas PKH:</strong>
+            Diprioritaskan bagi pekerja yang tidak sedang menerima
+            Program Keluarga Harapan (PKH) pada periode sebelum
+            penyaluran BSU.
+          </li>
+
+          <li>
+            <strong>Bukan ASN/TNI/Polri:</strong>
+            Tidak berstatus sebagai Aparatur Sipil Negara,
+            prajurit TNI, maupun anggota Polri.
+          </li>
+        </ol>
+      </div>
+
     </div>
+
+    <div class="footer">
+      <strong>PT KANINDO MAKMUR JAYA 2</strong><br>
+      Informasi ini ditujukan khusus untuk karyawan perusahaan.<br>
+      Hasil pengecekan bukan penetapan resmi penerima BSU.
+    </div>
+
   </div>
+</div>
 
-  <script>
-    // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwbBD_miwoiW5fjkHPo5Fk3Atd3rV1db1NL7vo3j_s9qT9EZeTee2U_4w2lw9ZlLUZWAA/exec';
+<script>
+  // URL WEB APP GOOGLE APPS SCRIPT
+  const GAS_URL =
+    'https://script.google.com/macros/s/AKfycbwbBD_miwoiW5fjkHPo5Fk3Atd3rV1db1NL7vo3j_s9qT9EZeTee2U_4w2lw9ZlLUZWAA/exec';
 
-    function cekBSU() {
-      const nik = document.getElementById('nik').value;
-      const resultBox = document.getElementById('resultBox');
-      const resultTitle = document.getElementById('resultTitle');
-      const resultMessage = document.getElementById('resultMessage');
-      const successArea = document.getElementById('successArea');
-      const loading = document.getElementById('loading');
+  const nikInput = document.getElementById('nik');
+  const digitCount = document.getElementById('digitCount');
+  const form = document.getElementById('cekForm');
+  const button = document.getElementById('checkButton');
 
-      if (nik.length < 16) {
-        alert('NIK harus 16 digit angka!');
-        return;
+  // Hanya menerima angka
+  nikInput.addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 16);
+    digitCount.textContent = this.value.length + '/16 digit';
+  });
+
+  // Proses pengecekan
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    cekBSU();
+  });
+
+  async function cekBSU() {
+    const nik = nikInput.value.trim();
+
+    const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const employeeInfo = document.getElementById('employeeInfo');
+    const employeeName = document.getElementById('employeeName');
+    const employeeNik = document.getElementById('employeeNik');
+    const successArea = document.getElementById('successArea');
+    const importantNote = document.getElementById('importantNote');
+    const loading = document.getElementById('loading');
+
+    if (!/^\d{16}$/.test(nik)) {
+      alert('NIK harus terdiri dari 16 digit angka!');
+      nikInput.focus();
+      return;
+    }
+
+    // Reset tampilan
+    resultBox.style.display = 'none';
+    resultBox.className = 'result';
+
+    employeeInfo.style.display = 'none';
+    successArea.style.display = 'none';
+    importantNote.style.display = 'none';
+
+    loading.style.display = 'block';
+    button.disabled = true;
+    button.textContent = 'Memeriksa...';
+
+    try {
+      const response = await fetch(
+        GAS_URL + '?nik=' + encodeURIComponent(nik)
+      );
+
+      if (!response.ok) {
+        throw new Error('Server tidak merespons dengan baik.');
       }
 
-      // Reset tampilan
-      resultBox.style.display = 'none';
-      successArea.style.display = 'none';
-      resultBox.className = 'alert';
-      loading.style.display = 'block';
+      const data = await response.json();
 
-      // Fetch data ke Google Apps Script
-      fetch(`${GAS_URL}?nik=${nik}`)
-        .then(response => response.json())
-        .then(data => {
-          loading.style.display = 'none';
-          resultBox.style.display = 'block';
+      loading.style.display = 'none';
+      resultBox.style.display = 'block';
 
-          if (data.status === 'success') {
-            resultBox.classList.add('alert-success');
-            resultTitle.innerText = '✅ Ditemukan!';
-            resultMessage.innerText = data.message;
-            successArea.style.display = 'block'; // Tampilkan form link, disclaimer, & tutorial Himbara
-          } else {
-            resultBox.classList.add('alert-danger');
-            resultTitle.innerText = '❌ Tidak Ditemukan';
-            resultMessage.innerText = data.message;
-          }
-        })
-        .catch(error => {
-          loading.style.display = 'none';
-          alert('Terjadi kesalahan koneksi atau URL Script salah. Coba lagi nanti.');
-          console.error(error);
-        });
+      if (data.status === 'success') {
+
+        // STATUS BERPOTENSI
+        resultBox.classList.add('success');
+
+        resultTitle.textContent =
+          '✓ Anda Berpotensi Menerima BSU 2026';
+
+        resultMessage.textContent =
+          data.message ||
+          'Data Anda terindikasi memenuhi kriteria awal berdasarkan data perusahaan.';
+
+        // Tampilkan nama karyawan
+        employeeName.textContent =
+          data.nama || data.name || 'Nama tidak tersedia';
+
+        employeeNik.textContent = nik;
+
+        employeeInfo.style.display = 'block';
+        successArea.style.display = 'block';
+        importantNote.style.display = 'block';
+
+      } else {
+
+        // STATUS BELUM BERPOTENSI / TIDAK DITEMUKAN
+        resultBox.classList.add('danger');
+
+        resultTitle.textContent =
+          '✕ Belum Terindikasi Berpotensi Menerima BSU';
+
+        resultMessage.textContent =
+          data.message ||
+          'NIK Anda belum ditemukan dalam daftar data perusahaan yang berpotensi menerima BSU 2026.';
+
+        importantNote.style.display = 'block';
+      }
+
+      // Tampilkan hasil
+      resultBox.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+      });
+
+    } catch (error) {
+
+      loading.style.display = 'none';
+
+      alert(
+        'Terjadi kesalahan saat menghubungi server. ' +
+        'Silakan coba kembali beberapa saat lagi.'
+      );
+
+      console.error('Kesalahan pengecekan BSU:', error);
+
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Cek Status BSU';
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
