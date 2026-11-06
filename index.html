@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Potensi BSU 2026 - PT Kanindo Makmur Jaya 2</title>
+  <style>
+    :root {
+      --primary: #0056b3;
+      --bg: #f4f7f6;
+      --text: #333;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #004494;
+    }
+    .alert {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      display: none;
+      text-align: left;
+    }
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .disclaimer {
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 15px;
+      font-style: italic;
+    }
+    .form-link {
+      display: inline-block;
+      margin-top: 15px;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .tutorial-box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e9ecef;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.9em;
+    }
+    .loader {
+      display: none;
+      margin-top: 15px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/yodiwahyu/berkas/main/logo%20kanindo.png" alt="Logo PT Kanindo" class="logo">
+    <h2>Cek Status BSU 2026</h2>
+    <p>Karyawan PT Kanindo Makmur Jaya 2</p>
+
+    <input type="number" id="nik" placeholder="Masukkan 16 Digit NIK KTP Anda" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+    <button onclick="cekBSU()">Cek Status</button>
+
+    <div id="loading" class="loader">Memeriksa data, mohon tunggu...</div>
+
+    <!-- Kotak Hasil Pengecekan -->
+    <div id="resultBox" class="alert">
+      <strong id="resultTitle"></strong>
+      <p id="resultMessage"></p>
+      
+      <!-- Area khusus jika berpotensi menerima -->
+      <div id="successArea" style="display: none;">
+        <p class="disclaimer">
+          *PENTING: Apabila BSU tidak cair, hal tersebut <strong>bukan tanggung jawab HRD</strong>, karena pihak yang melakukan verifikasi kelayakan akhir dan pencairan adalah <strong>Kementerian Ketenagakerjaan RI</strong>.
+        </p>
+        <hr>
+        <p>Silakan isi formulir pembaruan data rekening di bawah ini:</p>
+        <a href="LINK_GOOGLE_FORM_REKENING_ANDA" target="_blank" class="form-link">Isi Form Data Rekening Bank Himbara</a>
+        
+        <div class="tutorial-box">
+          <strong>Belum punya rekening HIMBARA?</strong><br>
+          Anda bisa membuatnya secara online dari HP tanpa harus ke bank:<br><br>
+          <ul>
+            <li><strong>Bank Mandiri (Livin' by Mandiri):</strong> Download aplikasi Livin', buka aplikasi, pilih "Belum Punya Rekening Mandiri", lalu pilih "Buka Tabungan" dan siapkan KTP Anda.</li>
+            <li><strong>Bank BRI (BRImo):</strong> Download aplikasi BRImo, pilih "Belum Punya Akun", lalu klik "Buka Rekening", ikuti instruksi foto KTP dan wajah.</li>
+            <li><strong>Bank BNI (BNI Mobile Banking):</strong> Download BNI Mobile, pilih "Buka Rekening BNI", pilih jenis tabungan Prakerja/Taplus, dan isi data diri sesuai KTP.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwbBD_miwoiW5fjkHPo5Fk3Atd3rV1db1NL7vo3j_s9qT9EZeTee2U_4w2lw9ZlLUZWAA/exec';
+
+    function cekBSU() {
+      const nik = document.getElementById('nik').value;
+      const resultBox = document.getElementById('resultBox');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultMessage = document.getElementById('resultMessage');
+      const successArea = document.getElementById('successArea');
+      const loading = document.getElementById('loading');
+
+      if (nik.length < 16) {
+        alert('NIK harus 16 digit angka!');
+        return;
+      }
+
+      // Reset tampilan
+      resultBox.style.display = 'none';
+      successArea.style.display = 'none';
+      resultBox.className = 'alert';
+      loading.style.display = 'block';
+
+      // Fetch data ke Google Apps Script
+      fetch(`${GAS_URL}?nik=${nik}`)
+        .then(response => response.json())
+        .then(data => {
+          loading.style.display = 'none';
+          resultBox.style.display = 'block';
+
+          if (data.status === 'success') {
+            resultBox.classList.add('alert-success');
+            resultTitle.innerText = '✅ Ditemukan!';
+            resultMessage.innerText = data.message;
+            successArea.style.display = 'block'; // Tampilkan form link, disclaimer, & tutorial Himbara
+          } else {
+            resultBox.classList.add('alert-danger');
+            resultTitle.innerText = '❌ Tidak Ditemukan';
+            resultMessage.innerText = data.message;
+          }
+        })
+        .catch(error => {
+          loading.style.display = 'none';
+          alert('Terjadi kesalahan koneksi atau URL Script salah. Coba lagi nanti.');
+          console.error(error);
+        });
+    }
+  </script>
+</body>
+</html>
